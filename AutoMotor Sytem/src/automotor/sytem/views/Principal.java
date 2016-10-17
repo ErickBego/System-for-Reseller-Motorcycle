@@ -279,7 +279,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
-        new JMC1().setVisible(true);
+        new JPDV1().setVisible(true);
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jMenuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSairActionPerformed
