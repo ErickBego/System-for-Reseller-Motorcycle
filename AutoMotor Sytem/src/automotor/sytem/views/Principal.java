@@ -7,6 +7,10 @@ package automotor.sytem.views;
 
 import java.awt.Component;
 import java.awt.Desktop;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 
 /**
@@ -21,6 +25,16 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         jPanel3.setVisible(false);
+        ListSelectionModel model = jTable1.getSelectionModel();
+        model.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(!model.isSelectionEmpty()){
+                    int selectedRow = model.getMinSelectionIndex();
+                    JOptionPane.showMessageDialog(null, "Selected Row "+selectedRow);
+                }
+            }
+        });
     }
 
     /**
