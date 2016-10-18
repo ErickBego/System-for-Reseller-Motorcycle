@@ -28,7 +28,10 @@ public class JPDV1 extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jButtonEntar6 = new javax.swing.JButton();
+        jButtonEntar7 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -74,26 +77,69 @@ public class JPDV1 extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("PDV (Ponto de Vendas)");
+        jLabel22.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel22.setText("CPF");
+
+        jTextField5.setForeground(new java.awt.Color(51, 51, 51));
+
+        jButtonEntar6.setBackground(new java.awt.Color(8, 81, 136));
+        jButtonEntar6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonEntar6.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonEntar6.setText("Continuar");
+        jButtonEntar6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonEntar6.setMaximumSize(new java.awt.Dimension(86, 43));
+        jButtonEntar6.setMinimumSize(new java.awt.Dimension(86, 43));
+        jButtonEntar6.setPreferredSize(new java.awt.Dimension(86, 43));
+        jButtonEntar6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEntar6ActionPerformed(evt);
+            }
+        });
+
+        jButtonEntar7.setBackground(new java.awt.Color(153, 153, 153));
+        jButtonEntar7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonEntar7.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonEntar7.setText("Selecionar Cliente");
+        jButtonEntar7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonEntar7.setMaximumSize(new java.awt.Dimension(86, 43));
+        jButtonEntar7.setMinimumSize(new java.awt.Dimension(86, 43));
+        jButtonEntar7.setPreferredSize(new java.awt.Dimension(86, 43));
+        jButtonEntar7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEntar7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButtonEntar6, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonEntar7, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLabel11)
-                .addGap(50, 50, 50))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel22)
+                .addGap(6, 6, 6)
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonEntar6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonEntar7, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -173,16 +219,17 @@ public class JPDV1 extends javax.swing.JFrame {
                     .addComponent(jLabel12)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel20)
-                        .addComponent(jLabel21)))
+                        .addComponent(jLabel21))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel13)
+                        .addComponent(jLabel14)
+                        .addComponent(jLabel15)
+                        .addComponent(jLabel17)
+                        .addComponent(jLabel18)
+                        .addComponent(jLabel19)))
                 .addContainerGap(228, Short.MAX_VALUE))
         );
 
@@ -507,6 +554,14 @@ public class JPDV1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonEntar5ActionPerformed
 
+    private void jButtonEntar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntar6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEntar6ActionPerformed
+
+    private void jButtonEntar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntar7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEntar7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -549,9 +604,10 @@ public class JPDV1 extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEntar3;
     private javax.swing.JButton jButtonEntar4;
     private javax.swing.JButton jButtonEntar5;
+    private javax.swing.JButton jButtonEntar6;
+    private javax.swing.JButton jButtonEntar7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -563,6 +619,7 @@ public class JPDV1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -584,5 +641,6 @@ public class JPDV1 extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }
