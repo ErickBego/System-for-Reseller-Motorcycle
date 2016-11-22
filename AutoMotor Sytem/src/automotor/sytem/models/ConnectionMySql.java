@@ -25,11 +25,11 @@ public class ConnectionMySql{
         try{
             String driverName = "com.mysql.jdbc.Driver";                        
             Class.forName(driverName);
-            String serverName = "192.168.1.252:3307";    
-            String mydatabase ="helpdesk";       
+            String serverName = "localhost:3306";    
+            String mydatabase ="mysql";       
             String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
             String username = "root";         
-            String password = "de4da9lu3s8";     
+            String password = "";     
             connection = DriverManager.getConnection(url, username, password);
  
             if(connection != null) {

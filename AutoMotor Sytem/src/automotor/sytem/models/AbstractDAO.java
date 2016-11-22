@@ -72,8 +72,16 @@ public class AbstractDAO {
         return false;
     }
     
-    public boolean create(){
-        
+    public boolean create(String Data[][]) throws Exception{
+        try{
+            String sql = new String();
+            sql = "INSERT INTO "+this.table;
+            PreparedStatement comando = conn.prepareStatement(sql);
+            this.result = comando.executeQuery();
+            
+        }catch(SQLException es){
+            System.out.println(es.toString());
+        }
         return false;
     }
     
