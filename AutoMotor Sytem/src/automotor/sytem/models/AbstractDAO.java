@@ -22,11 +22,11 @@ public class AbstractDAO {
     private String table;
     private String where;
     private String moreOptions;
-    private String leftJoin[];
-    private String rightJoin[];
-    private String innerJoin[];
+    private ArrayList leftJoin = new ArrayList();
+    private ArrayList rightJoin = new ArrayList();
+    private ArrayList innerJoin = new ArrayList();
     private ResultSet result;
-    private String rowCount;
+    private int rowCount;
     
     
     public AbstractDAO(){
@@ -37,22 +37,40 @@ public class AbstractDAO {
         return this.result;
     }
     
+    public AbstractDAO setLeftJoin(String data[]){
+        if(data.length==5)
+            this.leftJoin.add(data);
+        return this;
+    }
+    
+    public AbstractDAO setInnerJoin(String data[]){
+        if(data.length==5)
+            this.innerJoin.add(data);
+        return this;
+    }
+    
+    public AbstractDAO setRightJoin(String data[]){
+        if(data.length==5)
+            this.rightJoin.add(data);
+        return this;
+    }
+    
     public boolean select(String parameters){
         try{
             String sql = new String();
             sql = "SELECT "+parameters+" FROM "+this.table;
-            if(this.innerJoin.length>0){
-                for (String innerJoin1 : innerJoin) {
+            if(this.innerJoin.size()>0){
+                for (Object innerJoin1 : innerJoin) {
                     sql += " INNER JOIN " + innerJoin1;
                 }
             }
-            if(this.leftJoin.length>0){
-                for (String leftJoin1 : leftJoin) {
+            if(this.leftJoin.size()>0){
+                for (Object leftJoin1 : leftJoin) {
                     sql += " LEFT JOIN " + leftJoin1;
                 }
             }
-            if(this.rightJoin.length>0){
-                for (String rightJoin1 : rightJoin) {
+            if(this.rightJoin.size()>0){
+                for (Object rightJoin1 : rightJoin) {
                     sql += " RIGHT JOIN " + rightJoin1;
                 }
             }
