@@ -10,12 +10,12 @@ package automotor.sytem.views;
  *
  * @author Alex Morais
  */
-public class JMF extends javax.swing.JFrame {
+public class JMF2 extends javax.swing.JFrame {
 
     /**
      * Creates new form Faturamento
      */
-    public JMF() {
+    public JMF2() {
         initComponents();
     }
 
@@ -699,7 +699,7 @@ public class JMF extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JMF().setVisible(true);
+                new JMF1().setVisible(true);
             }
         });
     }
