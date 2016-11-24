@@ -7,6 +7,7 @@ package automotor.sytem.views;
 
 import java.awt.Component;
 import java.awt.Desktop;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -214,16 +215,27 @@ public class Principal extends javax.swing.JFrame {
         DefaultTableModel dtm = (DefaultTableModel) jTableDesktop.getModel();
         //dtm.setNumRows(0);
         dtm.setColumnCount(0);
-        dtm.addColumn("Programa",new String[]{"Five","Ten","Fifteen","Twenty"});
-        dtm.addColumn("Nome",new String[]{"Five","Ten","Fifteen","Twenty"});
-        dtm.addColumn("Modulo",new String[]{"Five","Ten","Fifteen","Twenty"});
+        dtm.addColumn("Programa",new String[]{"PDV1","Ten","Fifteen","Twenty"});
+        dtm.addColumn("Nome",new String[]{"Ponto de Vendas","Ten","Fifteen","Twenty"});
+        dtm.addColumn("Modulo",new String[]{"Vendas","Ten","Fifteen","Twenty"});
         ListSelectionModel modelVendas = jTableDesktop.getSelectionModel();
         modelVendas.addListSelectionListener(new ListSelectionListener() {
+        
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if(!modelVendas.isSelectionEmpty()){
                     int selectedRow = modelVendas.getMinSelectionIndex();
-                    JOptionPane.showMessageDialog(null, "Selected Row "+selectedRow);
+                    //JOptionPane.showMessageDialog(null, "Selected Row "+selectedRow);
+                    switch(selectedRow){
+                        case 0:
+                            if(!Principal.this.veriTela("PDV")){
+                                Principal.this.addTela("PDV");
+                                JPDV1 n;
+                                n = new JPDV1(Principal.this);
+                                n.setVisible(true);
+                            }
+                        break;
+                    }
                 }
             }
         });
@@ -233,7 +245,15 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jMenuSairActionPerformed
-
+    public boolean closeTela(String tela){
+        return this.telas.remove(tela);
+    }
+    public boolean addTela(String tela){
+        return this.telas.add(tela);
+    }
+    public boolean veriTela(String tela){
+        return this.telas.contains(tela);
+    }
     /**
      * @param args the command line arguments
      */
@@ -284,5 +304,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableDesktop;
     // End of variables declaration//GEN-END:variables
+    private ArrayList<String> telas = new ArrayList<String>(); 
 
 }
