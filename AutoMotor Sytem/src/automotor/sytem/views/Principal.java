@@ -215,9 +215,9 @@ public class Principal extends javax.swing.JFrame {
         DefaultTableModel dtm = (DefaultTableModel) jTableDesktop.getModel();
         //dtm.setNumRows(0);
         dtm.setColumnCount(0);
-        dtm.addColumn("Programa",new String[]{"PDV1","Ten","Fifteen","Twenty"});
-        dtm.addColumn("Nome",new String[]{"Ponto de Vendas","Ten","Fifteen","Twenty"});
-        dtm.addColumn("Modulo",new String[]{"Vendas","Ten","Fifteen","Twenty"});
+        dtm.addColumn("Programa",new String[]{"PDV1","JMC1","Fifteen","Twenty"});
+        dtm.addColumn("Nome",new String[]{"Ponto de Vendas","Janela Cadastro Clientes","Fifteen","Twenty"});
+        dtm.addColumn("Modulo",new String[]{"Ponto de Vendas","Cliente","Fifteen","Twenty"});
         ListSelectionModel modelVendas = jTableDesktop.getSelectionModel();
         modelVendas.addListSelectionListener(new ListSelectionListener() {
         
@@ -228,10 +228,18 @@ public class Principal extends javax.swing.JFrame {
                     //JOptionPane.showMessageDialog(null, "Selected Row "+selectedRow);
                     switch(selectedRow){
                         case 0:
-                            if(!Principal.this.veriTela("PDV")){
-                                Principal.this.addTela("PDV");
+                            if(!Principal.this.veriTela("PDV1")){
+                                Principal.this.addTela("PDV1");
                                 JPDV1 n;
                                 n = new JPDV1(Principal.this);
+                                n.setVisible(true);
+                            }
+                        break;
+                        case 1:
+                            if(!Principal.this.veriTela("JMC1")){
+                                Principal.this.addTela("JMC1");
+                                JMC1 n;
+                                n = new JMC1(Principal.this);
                                 n.setVisible(true);
                             }
                         break;

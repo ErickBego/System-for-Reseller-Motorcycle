@@ -11,11 +11,27 @@ package automotor.sytem.views;
  */
 public class JMC1 extends javax.swing.JFrame {
 
+
     /**
      * Creates new form JMC2
      */
-    public JMC1() {
+    private int qtdItem;
+    private int numItem;
+    
+    public JMC1(Principal P) {
+        this.Princi = P;
+        this.qtdItem = 0;
+        this.numItem = 1;
         initComponents();
+        this.jId.setText(new String().valueOf(this.numItem));
+        if(qtdItem<=numItem){
+            this.jProx.setEnabled(false);
+            this.jUltimo.setEnabled(false);
+        }
+    }
+
+    private JMC1() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -27,6 +43,18 @@ public class JMC1 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel3 = new javax.swing.JPanel();
+        jToolBar1 = new javax.swing.JToolBar();
+        jButton7 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jProx = new javax.swing.JButton();
+        jUltimo = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        jPesquisar = new javax.swing.JButton();
+        jNovo = new javax.swing.JButton();
+        jSalvar = new javax.swing.JButton();
+        jExcluir = new javax.swing.JButton();
+        jImprimir = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jBasico = new javax.swing.JPanel();
         jLabelId = new javax.swing.JLabel();
@@ -80,17 +108,6 @@ public class JMC1 extends javax.swing.JFrame {
         jSituacao = new javax.swing.JRadioButton();
         jLabelWebsite = new javax.swing.JLabel();
         jWebsite = new javax.swing.JFormattedTextField();
-        jToolBar1 = new javax.swing.JToolBar();
-        jButton7 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JToolBar.Separator();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jExcluir = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -108,6 +125,108 @@ public class JMC1 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("MOTORS :: Cadastro de Cliente");
+
+        jToolBar1.setFloatable(false);
+        jToolBar1.setRollover(true);
+
+        jButton7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton7.setText("|<");
+        jButton7.setFocusable(false);
+        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton7.setMaximumSize(new java.awt.Dimension(25, 25));
+        jButton7.setMinimumSize(new java.awt.Dimension(25, 25));
+        jButton7.setPreferredSize(new java.awt.Dimension(25, 25));
+        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton7);
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton1.setText("<");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setMaximumSize(new java.awt.Dimension(25, 25));
+        jButton1.setMinimumSize(new java.awt.Dimension(25, 25));
+        jButton1.setPreferredSize(new java.awt.Dimension(25, 25));
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton1);
+
+        jProx.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jProx.setText(">");
+        jProx.setFocusable(false);
+        jProx.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jProx.setMaximumSize(new java.awt.Dimension(25, 25));
+        jProx.setMinimumSize(new java.awt.Dimension(25, 25));
+        jProx.setPreferredSize(new java.awt.Dimension(25, 25));
+        jProx.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jProx);
+
+        jUltimo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jUltimo.setText(">|");
+        jUltimo.setFocusable(false);
+        jUltimo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jUltimo.setMaximumSize(new java.awt.Dimension(25, 25));
+        jUltimo.setMinimumSize(new java.awt.Dimension(25, 25));
+        jUltimo.setPreferredSize(new java.awt.Dimension(25, 25));
+        jUltimo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jUltimo);
+
+        jSeparator1.setMaximumSize(new java.awt.Dimension(20, 32767));
+        jSeparator1.setPreferredSize(new java.awt.Dimension(20, 0));
+        jToolBar1.add(jSeparator1);
+
+        jPesquisar.setText("Pesquisar");
+        jPesquisar.setFocusable(false);
+        jPesquisar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPesquisar.setMaximumSize(new java.awt.Dimension(60, 25));
+        jPesquisar.setMinimumSize(new java.awt.Dimension(60, 25));
+        jPesquisar.setPreferredSize(new java.awt.Dimension(60, 25));
+        jPesquisar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jPesquisar);
+
+        jNovo.setText("Novo");
+        jNovo.setFocusable(false);
+        jNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jNovo.setMaximumSize(new java.awt.Dimension(60, 25));
+        jNovo.setMinimumSize(new java.awt.Dimension(60, 25));
+        jNovo.setPreferredSize(new java.awt.Dimension(60, 25));
+        jNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jNovo);
+
+        jSalvar.setText("Salvar");
+        jSalvar.setFocusable(false);
+        jSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jSalvar.setMaximumSize(new java.awt.Dimension(60, 25));
+        jSalvar.setMinimumSize(new java.awt.Dimension(60, 25));
+        jSalvar.setPreferredSize(new java.awt.Dimension(60, 25));
+        jSalvar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jSalvar);
+
+        jExcluir.setText("Excluir");
+        jExcluir.setFocusable(false);
+        jExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jExcluir.setMaximumSize(new java.awt.Dimension(60, 25));
+        jExcluir.setMinimumSize(new java.awt.Dimension(60, 25));
+        jExcluir.setPreferredSize(new java.awt.Dimension(60, 25));
+        jExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jExcluirActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jExcluir);
+
+        jImprimir.setText("Imprimir");
+        jImprimir.setFocusable(false);
+        jImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jImprimir.setMaximumSize(new java.awt.Dimension(60, 25));
+        jImprimir.setMinimumSize(new java.awt.Dimension(60, 25));
+        jImprimir.setPreferredSize(new java.awt.Dimension(60, 25));
+        jImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jImprimir);
 
         jLabelId.setText("ID");
 
@@ -210,12 +329,30 @@ public class JMC1 extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jNomeC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(12, 12, 12)
-                        .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBasicoLayout.createSequentialGroup()
+                        .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jBasicoLayout.createSequentialGroup()
                                 .addComponent(jLabelTPessoa)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jBasicoLayout.createSequentialGroup()
+                                .addComponent(jLabelTCliente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(12, 12, 12)
+                        .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jBasicoLayout.createSequentialGroup()
+                                .addComponent(jLabelIE, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jIE, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12)
+                                .addComponent(jLabelSexo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabelTComercial)
+                                .addGap(6, 6, 6)
+                                .addComponent(jTComercial, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jBasicoLayout.createSequentialGroup()
                                 .addComponent(jLabelCnpjCpf)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jCnpjCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,26 +363,8 @@ public class JMC1 extends javax.swing.JFrame {
                                 .addGap(12, 12, 12)
                                 .addComponent(jLabelTResidencial)
                                 .addGap(6, 6, 6)
-                                .addComponent(jTResidencial, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBasicoLayout.createSequentialGroup()
-                                .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jBasicoLayout.createSequentialGroup()
-                                        .addComponent(jLabelTCliente)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(57, 57, 57))
-                                    .addGroup(jBasicoLayout.createSequentialGroup()
-                                        .addComponent(jLabelIE, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jIE, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabelSexo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabelTComercial)
-                                .addGap(6, 6, 6)
-                                .addComponent(jTComercial, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jTResidencial, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8))))
                     .addGroup(jBasicoLayout.createSequentialGroup()
                         .addComponent(jLabelDocEstrangeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -410,107 +529,26 @@ public class JMC1 extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Info. Complementares", jPanel2);
 
-        jToolBar1.setFloatable(false);
-        jToolBar1.setRollover(true);
-
-        jButton7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton7.setText("|<");
-        jButton7.setFocusable(false);
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setMaximumSize(new java.awt.Dimension(25, 25));
-        jButton7.setMinimumSize(new java.awt.Dimension(25, 25));
-        jButton7.setPreferredSize(new java.awt.Dimension(25, 25));
-        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton7);
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setText("<");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setMaximumSize(new java.awt.Dimension(25, 25));
-        jButton1.setMinimumSize(new java.awt.Dimension(25, 25));
-        jButton1.setPreferredSize(new java.awt.Dimension(25, 25));
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton1);
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton2.setText(">");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setMaximumSize(new java.awt.Dimension(25, 25));
-        jButton2.setMinimumSize(new java.awt.Dimension(25, 25));
-        jButton2.setPreferredSize(new java.awt.Dimension(25, 25));
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton2);
-
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton3.setText(">|");
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setMaximumSize(new java.awt.Dimension(25, 25));
-        jButton3.setMinimumSize(new java.awt.Dimension(25, 25));
-        jButton3.setPreferredSize(new java.awt.Dimension(25, 25));
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton3);
-
-        jSeparator1.setMaximumSize(new java.awt.Dimension(20, 32767));
-        jSeparator1.setPreferredSize(new java.awt.Dimension(20, 0));
-        jToolBar1.add(jSeparator1);
-
-        jButton4.setText("Pesquisar");
-        jButton4.setFocusable(false);
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setMaximumSize(new java.awt.Dimension(60, 25));
-        jButton4.setMinimumSize(new java.awt.Dimension(60, 25));
-        jButton4.setPreferredSize(new java.awt.Dimension(60, 25));
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton4);
-
-        jButton5.setText("Novo");
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setMaximumSize(new java.awt.Dimension(60, 25));
-        jButton5.setMinimumSize(new java.awt.Dimension(60, 25));
-        jButton5.setPreferredSize(new java.awt.Dimension(60, 25));
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton5);
-
-        jButton6.setText("Salvar");
-        jButton6.setFocusable(false);
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setMaximumSize(new java.awt.Dimension(60, 25));
-        jButton6.setMinimumSize(new java.awt.Dimension(60, 25));
-        jButton6.setPreferredSize(new java.awt.Dimension(60, 25));
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton6);
-
-        jExcluir.setText("Excluir");
-        jExcluir.setFocusable(false);
-        jExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jExcluir.setMaximumSize(new java.awt.Dimension(60, 25));
-        jExcluir.setMinimumSize(new java.awt.Dimension(60, 25));
-        jExcluir.setPreferredSize(new java.awt.Dimension(60, 25));
-        jExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jExcluirActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jExcluir);
-
-        jButton8.setText("Imprimir");
-        jButton8.setFocusable(false);
-        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton8.setMaximumSize(new java.awt.Dimension(60, 25));
-        jButton8.setMinimumSize(new java.awt.Dimension(60, 25));
-        jButton8.setPreferredSize(new java.awt.Dimension(60, 25));
-        jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton8);
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         jMenu1.setText("Arquivo");
 
@@ -592,20 +630,15 @@ public class JMC1 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(12, 12, 12))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -683,13 +716,7 @@ public class JMC1 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jBasico;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JTextField jCEP;
     private javax.swing.JTextField jCidade;
     private javax.swing.JTextField jCnpjCpf;
@@ -701,6 +728,7 @@ public class JMC1 extends javax.swing.JFrame {
     private javax.swing.JButton jExcluir;
     private javax.swing.JTextField jIE;
     private javax.swing.JTextField jId;
+    private javax.swing.JButton jImprimir;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -739,8 +767,13 @@ public class JMC1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JTextField jNomeC;
+    private javax.swing.JButton jNovo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton jPesquisar;
+    private javax.swing.JButton jProx;
+    private javax.swing.JButton jSalvar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
@@ -758,6 +791,8 @@ public class JMC1 extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextArea jTextObservacao;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JButton jUltimo;
     private javax.swing.JFormattedTextField jWebsite;
     // End of variables declaration//GEN-END:variables
+    private Principal Princi;
 }

@@ -570,7 +570,7 @@ public class JPDV1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEntar7ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.Princi.closeTela("PDV");
+        this.Princi.closeTela("PDV1");
     }//GEN-LAST:event_formWindowClosing
 
     /**
