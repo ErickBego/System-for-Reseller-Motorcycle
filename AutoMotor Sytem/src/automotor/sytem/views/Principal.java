@@ -226,7 +226,7 @@ public class Principal extends javax.swing.JFrame {
                 if(!modelVendas.isSelectionEmpty()){
                     int selectedRow = modelVendas.getMinSelectionIndex();
                     //JOptionPane.showMessageDialog(null, "Selected Row "+selectedRow);
-                    switch(selectedRow){
+                    switch(selectedRow){ 
                         case 0:
                             if(!Principal.this.veriTela("PDV1")){
                                 Principal.this.addTela("PDV1");

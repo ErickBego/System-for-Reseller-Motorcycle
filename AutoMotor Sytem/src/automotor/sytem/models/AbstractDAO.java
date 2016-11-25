@@ -19,13 +19,13 @@ import java.util.ArrayList;
 public class AbstractDAO {
     
     private Connection conn;
-    private String table;
-    private String where;
-    private String moreOptions;
-    private ArrayList leftJoin = new ArrayList();
-    private ArrayList rightJoin = new ArrayList();
-    private ArrayList innerJoin = new ArrayList();
-    private ResultSet result;
+    private String table = "";
+    private String where = "";
+    private String moreOptions = "";
+    private final ArrayList leftJoin = new ArrayList();
+    private final ArrayList rightJoin = new ArrayList();
+    private final ArrayList innerJoin = new ArrayList();
+    ResultSet result;
     private int rowCount;
     
     
@@ -35,6 +35,11 @@ public class AbstractDAO {
     
     public ResultSet getResult(){
         return this.result;
+    }
+    
+    public AbstractDAO setTable(String table){
+        this.table = table;
+        return this;
     }
     
     public AbstractDAO setLeftJoin(String data[]){
@@ -55,45 +60,49 @@ public class AbstractDAO {
         return this;
     }
     
-    public boolean select(String parameters){
+    public AbstractDAO select(String parameters){
         try{
-            String sql = new String();
-            sql = "SELECT "+parameters+" FROM "+this.table;
+            String sql = "SELECT "+parameters+" FROM "+this.table;
+          
             if(this.innerJoin.size()>0){
                 for (Object innerJoin1 : innerJoin) {
                     sql += " INNER JOIN " + innerJoin1;
                 }
             }
+            
             if(this.leftJoin.size()>0){
                 for (Object leftJoin1 : leftJoin) {
                     sql += " LEFT JOIN " + leftJoin1;
                 }
             }
+            
             if(this.rightJoin.size()>0){
                 for (Object rightJoin1 : rightJoin) {
                     sql += " RIGHT JOIN " + rightJoin1;
                 }
             }
-            if(!this.where.isEmpty())
+   
+            if(!this.where.isEmpty()){
                 sql += " WHERE "+this.where;
-            if(!this.moreOptions.isEmpty())
+            }
+            if(!this.moreOptions.isEmpty()){
                 sql += " "+this.moreOptions;
+            }
 
             PreparedStatement comando = conn.prepareStatement(sql);
             this.result = comando.executeQuery();
-            return true;
+            conn.close();
+            return this;
         }catch(SQLException es){
             System.out.println(es.toString());
         }catch(Exception ex){
             System.out.println(ex.toString());
         }
-        return false;
+        return this;
     }
-    
     public boolean create(String Data[][]) throws Exception{
         try{
-            String sql = new String();
-            sql = "INSERT INTO "+this.table;
+            String sql = "INSERT INTO "+this.table;
             PreparedStatement comando = conn.prepareStatement(sql);
             this.result = comando.executeQuery();
             
