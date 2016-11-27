@@ -24,9 +24,9 @@ public class ConnectionMySql{
     public static java.sql.Connection startConnection() {
         Connection connection = null;          //atributo do tipo Connection
         String driverName = "com.mysql.jdbc.Driver";
-         String serverName = "localhost:3308"; 
+         String serverName = "localhost:3306"; 
          
-            String mydatabase ="teste";       
+            String mydatabase ="automotor";       
             String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
             String username = "root";         
             String password = "";

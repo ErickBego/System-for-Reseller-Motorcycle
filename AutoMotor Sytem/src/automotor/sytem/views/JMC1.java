@@ -7,6 +7,9 @@ package automotor.sytem.views;
 
 import automotor.sytem.models.ClienteDAO;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,7 +36,7 @@ public class JMC1 extends javax.swing.JFrame {
         }catch(SQLException e){
             System.out.println(e.toString());
         }
-        
+        System.out.println(this.numItem);
         this.jId.setText(String.valueOf(this.numItem));
         if(qtdItem<=numItem){
             this.jProx.setEnabled(false);
@@ -78,7 +81,6 @@ public class JMC1 extends javax.swing.JFrame {
         jNomeC = new javax.swing.JTextField();
         jLabelSexo = new javax.swing.JLabel();
         jSexo = new javax.swing.JComboBox<>();
-        jDNascimento = new javax.swing.JFormattedTextField();
         jLabelDNascimento = new javax.swing.JLabel();
         jLabelTPessoa = new javax.swing.JLabel();
         jTPessoa = new javax.swing.JComboBox<>();
@@ -98,19 +100,20 @@ public class JMC1 extends javax.swing.JFrame {
         jLabelDocEstrangeiro = new javax.swing.JLabel();
         jSuframa = new javax.swing.JTextField();
         jLabelSuframa = new javax.swing.JLabel();
+        jDNascimento = new javax.swing.JFormattedTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabelEndereco = new javax.swing.JLabel();
         jEndereco = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jNum = new javax.swing.JTextField();
         jLabelCEP = new javax.swing.JLabel();
-        jCEP = new javax.swing.JTextField();
         jLabelCidade = new javax.swing.JLabel();
         jCidade = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jEstado = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jBairro = new javax.swing.JTextField();
+        jCEP = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         jEmail = new javax.swing.JFormattedTextField();
         jContato = new javax.swing.JFormattedTextField();
@@ -172,6 +175,11 @@ public class JMC1 extends javax.swing.JFrame {
         jAnt.setMinimumSize(new java.awt.Dimension(25, 25));
         jAnt.setPreferredSize(new java.awt.Dimension(25, 25));
         jAnt.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jAnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAntActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jAnt);
 
         jProx.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -268,8 +276,6 @@ public class JMC1 extends javax.swing.JFrame {
 
         jSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino" }));
 
-        jDNascimento.setPreferredSize(new java.awt.Dimension(6, 30));
-
         jLabelDNascimento.setText("Data de Nascimento");
 
         jLabelTPessoa.setText("Tipo de Pessoa");
@@ -284,7 +290,25 @@ public class JMC1 extends javax.swing.JFrame {
 
         jLabelTComercial.setText("Tel. Comercial");
 
+        try {
+            jTResidencial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            jTComercial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         jLabelTCelular.setText("Tel. Celular");
+
+        try {
+            jTCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         jTCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pessoa Física", "Pessoa Jurídica" }));
 
@@ -293,6 +317,12 @@ public class JMC1 extends javax.swing.JFrame {
         jLabelDocEstrangeiro.setText("Doc. Estrangeiro");
 
         jLabelSuframa.setText("Nº Inscrição Suframa");
+
+        try {
+            jDNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jBasicoLayout = new javax.swing.GroupLayout(jBasico);
         jBasico.setLayout(jBasicoLayout);
@@ -327,12 +357,12 @@ public class JMC1 extends javax.swing.JFrame {
                                 .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabelDNascimento)
-                                        .addComponent(jDNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabelTCelular)
                                             .addComponent(jTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(jDocEstrangeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelDocEstrangeiro)))))
+                                    .addComponent(jLabelDocEstrangeiro)
+                                    .addComponent(jDNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jBasicoLayout.createSequentialGroup()
                         .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelId)
@@ -381,29 +411,33 @@ public class JMC1 extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(jTResidencial, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jBasicoLayout.createSequentialGroup()
-                        .addComponent(jLabelIE, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBasicoLayout.createSequentialGroup()
+                                .addComponent(jLabelIE, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jIE, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabelSexo))
+                            .addGroup(jBasicoLayout.createSequentialGroup()
+                                .addComponent(jLabelDocEstrangeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDocEstrangeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabelDNascimento)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jIE, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabelSexo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabelTComercial)
-                        .addGap(6, 6, 6)
-                        .addComponent(jTComercial, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jBasicoLayout.createSequentialGroup()
-                        .addComponent(jLabelDocEstrangeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDocEstrangeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabelDNascimento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabelTCelular)
-                        .addGap(6, 6, 6)
-                        .addComponent(jTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBasicoLayout.createSequentialGroup()
+                                .addComponent(jDNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabelTCelular)
+                                .addGap(6, 6, 6)
+                                .addComponent(jTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBasicoLayout.createSequentialGroup()
+                                .addComponent(jSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabelTComercial)
+                                .addGap(6, 6, 6)
+                                .addComponent(jTComercial, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18))
         );
 
@@ -427,6 +461,12 @@ public class JMC1 extends javax.swing.JFrame {
 
         jLabel6.setText("Bairro");
 
+        try {
+            jCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -434,7 +474,7 @@ public class JMC1 extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCEP)
                     .addComponent(jLabel6)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -465,7 +505,7 @@ public class JMC1 extends javax.swing.JFrame {
                 .addComponent(jLabelCEP)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelEndereco)
                     .addComponent(jLabel3))
@@ -707,6 +747,7 @@ public class JMC1 extends javax.swing.JFrame {
 
     private void jProxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProxActionPerformed
         this.numItem++;
+        this.jId.setText(String.valueOf(this.numItem));
     }//GEN-LAST:event_jProxActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -715,38 +756,46 @@ public class JMC1 extends javax.swing.JFrame {
 
     private void jSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalvarActionPerformed
         // TODO add your handling code here:
-        try{
             dao = new ClienteDAO();
-            dao.setID(Integer.valueOf(this.jId.getText()));
-            dao.setNomeCompleto(this.jNomeC.getText());
-            dao.setTPessoa(Integer.valueOf(this.jTPessoa.toString()));
-            dao.setTCliente(Integer.valueOf(this.jTCliente.toString()));
-            dao.setCNPJCPF(this.jCnpjCpf.getText());
-            dao.setIERG(this.jIE.getText());
-            dao.setDocEstr(this.jDocEstrangeiro.getText());
-            dao.setSuframa(this.jSuframa.getText());
-            dao.setSexo(Integer.valueOf(this.jSexo.toString()));
-            dao.setData(this.jDNascimento.getText());
-            dao.setTelResiden(this.jDNascimento.getText());
-            dao.setTelCelular(this.jTCelular.getText());
-            dao.setTelComercial(this.jTComercial.getText());
-            dao.setCEP(this.jCEP.getText());
-            dao.setStreet(this.jEndereco.getText());
-            dao.setNum(this.jNum.getText());
-            dao.setBairro(this.jBairro.getText());
-            dao.setCidade(this.jCidade.getText());
-            dao.setEstado(this.jEstado.getText());
-            dao.setEmail(this.jEmail.getText());
-            dao.setContato(this.jContato.getText());
-            dao.setWebSite(this.jWebsite.getText());
-            dao.setObservacao(this.jTextObservacao.getText());
-            dao.setAtivo(Integer.valueOf(this.jAtivo.toString()));
+            dao.setID(Integer.valueOf(this.jId.getText()))
+            .setNomeCompleto(this.jNomeC.getText())
+            .setTPessoa(this.jTPessoa.getSelectedIndex())
+            .setTCliente(this.jTCliente.getSelectedIndex())
+            .setCNPJCPF(this.jCnpjCpf.getText())
+            .setIERG(this.jIE.getText())
+            .setDocEstr(this.jDocEstrangeiro.getText())
+            .setSuframa(this.jSuframa.getText())
+            .setSexo(this.jSexo.getSelectedIndex())
+            .setData(this.jDNascimento.getText())
+            .setTelResiden(this.jTResidencial.getText())
+            .setTelCelular(this.jTCelular.getText())
+            .setTelComercial(this.jTComercial.getText())
+            .setCEP(this.jCEP.getText())
+            .setStreet(this.jEndereco.getText())
+            .setNum(this.jNum.getText())
+            .setBairro(this.jBairro.getText())
+            .setCidade(this.jCidade.getText())
+            .setEstado(this.jEstado.getText())
+            .setEmail(this.jEmail.getText())
+            .setContato(this.jContato.getText())
+            .setWebSite(this.jWebsite.getText())
+            .setObservacao(this.jTextObservacao.getText())
+            .setAtivo(this.jAtivo.isSelected());
             
+        try {
             dao.salvar();
-        }catch(SQLException e){
-            System.out.println(e.toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(JMC1.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(JMC1.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }//GEN-LAST:event_jSalvarActionPerformed
+
+    private void jAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAntActionPerformed
+        this.numItem--;
+        this.jId.setText(String.valueOf(this.numItem));
+    }//GEN-LAST:event_jAntActionPerformed
 
     /**
      * @param args the command line arguments
@@ -788,7 +837,7 @@ public class JMC1 extends javax.swing.JFrame {
     private javax.swing.JRadioButton jAtivo;
     private javax.swing.JTextField jBairro;
     private javax.swing.JPanel jBasico;
-    private javax.swing.JTextField jCEP;
+    private javax.swing.JFormattedTextField jCEP;
     private javax.swing.JTextField jCidade;
     private javax.swing.JTextField jCnpjCpf;
     private javax.swing.JFormattedTextField jContato;

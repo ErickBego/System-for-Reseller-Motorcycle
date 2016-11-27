@@ -5,14 +5,19 @@
  */
 package automotor.sytem.models;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
  * @author jcodogno
  */
-public class ClienteDAO extends AbstractDAO{
+public class ClienteDAO{
     
     private String nomeCompleto;
     private int ID;
@@ -37,215 +42,275 @@ public class ClienteDAO extends AbstractDAO{
     private String Contato;
     private String WebSite;
     private String Observacao;
-    private int ativo;
+    private boolean ativo;
     
     public String getEmail() {
         return Email;
     }
 
-    public void setEmail(String Email) {
+    public ClienteDAO setEmail(String Email) {
         this.Email = Email;
+        return this;
     }
 
     public String getContato() {
         return Contato;
     }
 
-    public void setContato(String Contato) {
+    public ClienteDAO setContato(String Contato) {
         this.Contato = Contato;
+        return this;
     }
 
     public String getWebSite() {
         return WebSite;
     }
 
-    public void setWebSite(String WebSite) {
+    public ClienteDAO setWebSite(String WebSite) {
         this.WebSite = WebSite;
+        return this;
     }
 
     public String getObservacao() {
         return Observacao;
     }
 
-    public void setObservacao(String Observacao) {
+    public ClienteDAO setObservacao(String Observacao) {
         this.Observacao = Observacao;
+        return this;
     }
 
-    public int getAtivo() {
+    public boolean getAtivo() {
         return ativo;
     }
 
-    public void setAtivo(int ativo) {
+    public ClienteDAO setAtivo(boolean ativo) {
         this.ativo = ativo;
+        return this;
     }
     
     public String getNomeCompleto() {
         return nomeCompleto;
     }
 
-    public void setNomeCompleto(String nomeCompleto) {
+    public ClienteDAO setNomeCompleto(String nomeCompleto) {
         this.nomeCompleto = nomeCompleto;
+        return this;
     }
 
     public int getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public ClienteDAO setID(int ID) {
         this.ID = ID;
+        return this;
     }
 
     public int getTPessoa() {
         return TPessoa;
     }
 
-    public void setTPessoa(int TPessoa) {
+    public ClienteDAO setTPessoa(int TPessoa) {
         this.TPessoa = TPessoa;
+        return this;
     }
 
     public int getTCliente() {
         return TCliente;
     }
 
-    public void setTCliente(int TCliente) {
+    public ClienteDAO setTCliente(int TCliente) {
         this.TCliente = TCliente;
+        return this;
     }
 
     public String getCNPJCPF() {
         return CNPJCPF;
     }
 
-    public void setCNPJCPF(String CNPJCPF) {
+    public ClienteDAO setCNPJCPF(String CNPJCPF) {
         this.CNPJCPF = CNPJCPF;
+        return this;
     }
 
     public String getIERG() {
         return IERG;
     }
 
-    public void setIERG(String IERG) {
+    public ClienteDAO setIERG(String IERG) {
         this.IERG = IERG;
+        return this;
     }
 
     public String getDocEstr() {
         return DocEstr;
     }
 
-    public void setDocEstr(String DocEstr) {
+    public ClienteDAO setDocEstr(String DocEstr) {
         this.DocEstr = DocEstr;
+        return this;
     }
 
     public String getSuframa() {
         return Suframa;
     }
 
-    public void setSuframa(String Suframa) {
+    public ClienteDAO setSuframa(String Suframa) {
         this.Suframa = Suframa;
+        return this;
     }
 
     public int getSexo() {
         return Sexo;
     }
 
-    public void setSexo(int Sexo) {
+    public ClienteDAO setSexo(int Sexo) {
         this.Sexo = Sexo;
+        return this;
     }
 
     public String getData() {
         return Data;
     }
 
-    public void setData(String Data) {
+    public ClienteDAO setData(String Data) {
         this.Data = Data;
+        return this;
     }
 
     public String getTelResiden() {
         return TelResiden;
     }
 
-    public void setTelResiden(String TelResiden) {
+    public ClienteDAO setTelResiden(String TelResiden) {
         this.TelResiden = TelResiden;
+        return this;
     }
 
     public String getTelComercial() {
         return TelComercial;
     }
 
-    public void setTelComercial(String TelComercial) {
+    public ClienteDAO setTelComercial(String TelComercial) {
         this.TelComercial = TelComercial;
+        return this;
     }
 
     public String getTelCelular() {
         return TelCelular;
     }
 
-    public void setTelCelular(String TelCelular) {
+    public ClienteDAO setTelCelular(String TelCelular) {
         this.TelCelular = TelCelular;
+        return this;
     }
 
     public String getCEP() {
         return CEP;
     }
 
-    public void setCEP(String CEP) {
+    public ClienteDAO setCEP(String CEP) {
         this.CEP = CEP;
+        return this;
     }
 
     public String getStreet() {
         return Street;
     }
 
-    public void setStreet(String Street) {
+    public ClienteDAO setStreet(String Street) {
         this.Street = Street;
+        return this;
     }
 
     public String getNum() {
         return Num;
     }
 
-    public void setNum(String Num) {
+    public ClienteDAO setNum(String Num) {
         this.Num = Num;
+        return this;
     }
 
     public String getBairro() {
         return Bairro;
     }
 
-    public void setBairro(String Bairro) {
+    public ClienteDAO setBairro(String Bairro) {
         this.Bairro = Bairro;
+        return this;
     }
 
     public String getCidade() {
         return Cidade;
     }
 
-    public void setCidade(String Cidade) {
+    public ClienteDAO setCidade(String Cidade) {
         this.Cidade = Cidade;
+        return this;
     }
 
     public String getEstado() {
         return Estado;
     }
 
-    public void setEstado(String Estado) {
+    public ClienteDAO setEstado(String Estado) {
         this.Estado = Estado;
+        return this;
     }
     
             
     public ClienteDAO(){
     }
     
-    public void consultaCliente(){
-        this.setTable("clientes").select("*");
+    public void consultaCliente(int id) throws SQLException{
+        String sql = "SELECT * as qtd FROM clientes WHERE idClientes="+id;
+        ResultSet rs;
+        try (Connection conn = ConnectionMySql.startConnection()) {
+            PreparedStatement comando = conn.prepareStatement(sql);
+            rs = comando.executeQuery();
+        }
+        
     }
 
-    public int numQtd() throws SQLException {
-       ResultSet rs = this.setTable("clientes").select("COUNT(*) as qtd").getResult();
-       boolean next = rs.next();
-       return rs.getInt("qtd");
+    public int numQtd() throws SQLException{
+        String sql = "SELECT COUNT(*) as qtd FROM clientes";
+        ResultSet rs;
+        Connection conn = ConnectionMySql.startConnection();
+        PreparedStatement comando = conn.prepareStatement(sql);
+        rs = comando.executeQuery();
+        boolean next = rs.next();
+        return rs.getInt("qtd");
     }
 
-    public void salvar() {
-        ResultSet rs = this.setTable("clientes").;
+    public void salvar() throws SQLException, ParseException {
+        String sql = "INSERT INTO clientes (`NomeRazao`, `Datacadastro`, `DataAtualizacao`, `TipoCliente`, `CpfCnpj`, `IERG`, `TipoPessoa`, `DocEstrangeiro`, `DataNascimento`, `TelefoneResidencial`, `TelefoneComercial`, `NumeroInscricaoSuframa`, `Celular`, `Contato`, `Email`, `Website`, `Observacao`, `Ativo`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        ResultSet rs;
+        try (Connection conn = ConnectionMySql.startConnection()) {
+            PreparedStatement preparedStmt = conn.prepareStatement(sql);
+            preparedStmt.setString(1, this.nomeCompleto);
+            java.util.Date dataUtil = new java.util.Date();
+            preparedStmt.setDate(2, new java.sql.Date(dataUtil.getTime()));
+            preparedStmt.setDate(3, new java.sql.Date(dataUtil.getTime()));
+            preparedStmt.setInt(4, this.TCliente);
+            preparedStmt.setString(5, this.CNPJCPF);
+            preparedStmt.setString(6, this.IERG);
+            preparedStmt.setInt(7, this.TPessoa);
+            preparedStmt.setString(8, this.DocEstr);
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            preparedStmt.setDate(9, new java.sql.Date(formato.parse(this.Data).getTime()));
+            preparedStmt.setString(10, this.TelResiden);
+            preparedStmt.setString(11, this.TelComercial);
+            preparedStmt.setString(12, this.Suframa);
+            preparedStmt.setString(13, this.TelCelular);
+            preparedStmt.setString(14, this.Contato);
+            preparedStmt.setString(15, this.Email);
+            preparedStmt.setString(16, this.WebSite);
+            preparedStmt.setString(17, this.Observacao);
+            preparedStmt.setBoolean(18, this.ativo);
+            preparedStmt.execute();
+            conn.close();
+        }
     }
 }
