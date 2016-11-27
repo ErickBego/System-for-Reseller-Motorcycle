@@ -8,6 +8,7 @@ package automotor.sytem.views;
 import automotor.sytem.models.ClienteDAO;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,36 +23,62 @@ public class JMC1 extends javax.swing.JFrame {
      * Creates new form JMC2
      */
     private int qtdItem;
+    private ArrayList<Integer> IDs;
     private int numItem;
     ClienteDAO dao;
     
     public JMC1(Principal P){
         this.Princi = P;
+        this.dao = new ClienteDAO();
+        this.numItem = 0;
         
-        this.numItem = 1;
         initComponents();
-        try{
-            dao = new ClienteDAO();
-            this.qtdItem = dao.numQtd();
-        }catch(SQLException e){
-            System.out.println(e.toString());
-        }
-        System.out.println(this.numItem);
-        this.jId.setText(String.valueOf(this.numItem));
-        if(qtdItem<=numItem){
-            this.jProx.setEnabled(false);
-            this.jUltimo.setEnabled(false);
-        }
-        if(numItem==1){
-            this.jAnt.setEnabled(false);
-            this.jPrim.setEnabled(false);
-        }
+        atualizarCampos();
+
     }
 
     private JMC1() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    private void atualizarCampos(){
+        try {
+            this.IDs = this.dao.listOfID();
+            this.qtdItem = this.IDs.size();
+            
+            dao.consultaCliente(this.IDs.get(this.numItem));
+            this.jNomeC.setText(dao.getNomeCompleto());
+            this.jTPessoa.setSelectedIndex(dao.getTPessoa());
+            this.jCnpjCpf.setText(dao.getCNPJCPF());
+            this.jIE.setText(dao.getIERG());
+            this.jDocEstrangeiro.setText(dao.getDocEstr());
+            this.jSuframa.setText(dao.getSuframa());
+            this.jSexo.setSelectedItem(dao.getSexo());
+            this.jDNascimento.setText(dao.getData());
+            this.jTResidencial.setText(dao.getTelResiden());
+            this.jTComercial.setText(dao.getTelComercial());
+            this.jTCelular.setText(dao.getTelCelular());
+        } catch (SQLException ex) {
+            Logger.getLogger(JMC1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.jId.setText(String.valueOf(this.IDs.get(this.numItem)));
+        if(this.numItem<this.qtdItem-1){
+            this.jProx.setEnabled(true);
+            this.jUltimo.setEnabled(true);
+        }else{
+            this.jProx.setEnabled(false);
+            this.jUltimo.setEnabled(false);
+        }
+        
+        if(numItem==0){
+            this.jAnt.setEnabled(false);
+            this.jPrim.setEnabled(false);
+        }else{
+            this.jAnt.setEnabled(true);
+            this.jPrim.setEnabled(true);
+        }
+        desativarCampos();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,6 +88,10 @@ public class JMC1 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jInternalPesquisar = new javax.swing.JInternalFrame();
+        jLocalizar = new javax.swing.JTextField();
+        jLabelNomeC1 = new javax.swing.JLabel();
+        jbtPesquisar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jPrim = new javax.swing.JButton();
@@ -70,6 +101,7 @@ public class JMC1 extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jPesquisar = new javax.swing.JButton();
         jNovo = new javax.swing.JButton();
+        jEditar = new javax.swing.JButton();
         jSalvar = new javax.swing.JButton();
         jExcluir = new javax.swing.JButton();
         jImprimir = new javax.swing.JButton();
@@ -94,8 +126,6 @@ public class JMC1 extends javax.swing.JFrame {
         jTComercial = new javax.swing.JFormattedTextField();
         jLabelTCelular = new javax.swing.JLabel();
         jTCelular = new javax.swing.JFormattedTextField();
-        jTCliente = new javax.swing.JComboBox<>();
-        jLabelTCliente = new javax.swing.JLabel();
         jDocEstrangeiro = new javax.swing.JTextField();
         jLabelDocEstrangeiro = new javax.swing.JLabel();
         jSuframa = new javax.swing.JTextField();
@@ -114,6 +144,8 @@ public class JMC1 extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jBairro = new javax.swing.JTextField();
         jCEP = new javax.swing.JFormattedTextField();
+        jPais = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jEmail = new javax.swing.JFormattedTextField();
         jContato = new javax.swing.JFormattedTextField();
@@ -135,6 +167,7 @@ public class JMC1 extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
@@ -148,6 +181,63 @@ public class JMC1 extends javax.swing.JFrame {
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jInternalPesquisar.setClosable(true);
+        jInternalPesquisar.setVisible(false);
+        jInternalPesquisar.addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                jInternalPesquisarInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
+
+        jLabelNomeC1.setText("Localizar");
+
+        jbtPesquisar.setText("Pesquisar");
+        jbtPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtPesquisarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jInternalPesquisarLayout = new javax.swing.GroupLayout(jInternalPesquisar.getContentPane());
+        jInternalPesquisar.getContentPane().setLayout(jInternalPesquisarLayout);
+        jInternalPesquisarLayout.setHorizontalGroup(
+            jInternalPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalPesquisarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jInternalPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabelNomeC1)
+                        .addComponent(jLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbtPesquisar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jInternalPesquisarLayout.setVerticalGroup(
+            jInternalPesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalPesquisarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelNomeC1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLocalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jInternalPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 490, 150));
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -205,6 +295,11 @@ public class JMC1 extends javax.swing.JFrame {
         jUltimo.setMinimumSize(new java.awt.Dimension(25, 25));
         jUltimo.setPreferredSize(new java.awt.Dimension(25, 25));
         jUltimo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jUltimoActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jUltimo);
 
         jSeparator1.setMaximumSize(new java.awt.Dimension(20, 32767));
@@ -218,6 +313,11 @@ public class JMC1 extends javax.swing.JFrame {
         jPesquisar.setMinimumSize(new java.awt.Dimension(60, 25));
         jPesquisar.setPreferredSize(new java.awt.Dimension(60, 25));
         jPesquisar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPesquisarActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jPesquisar);
 
         jNovo.setText("Novo");
@@ -227,7 +327,23 @@ public class JMC1 extends javax.swing.JFrame {
         jNovo.setMinimumSize(new java.awt.Dimension(60, 25));
         jNovo.setPreferredSize(new java.awt.Dimension(60, 25));
         jNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNovoActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jNovo);
+
+        jEditar.setText("Editar");
+        jEditar.setFocusable(false);
+        jEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jEditar);
 
         jSalvar.setText("Salvar");
         jSalvar.setFocusable(false);
@@ -284,6 +400,12 @@ public class JMC1 extends javax.swing.JFrame {
 
         jLabelCnpjCpf.setText("CNPJ/CPF");
 
+        jCnpjCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jCnpjCpfKeyPressed(evt);
+            }
+        });
+
         jLabelIE.setText("IE/RG");
 
         jLabelTResidencial.setText("Tel. Residêncial");
@@ -309,10 +431,6 @@ public class JMC1 extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-
-        jTCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pessoa Física", "Pessoa Jurídica" }));
-
-        jLabelTCliente.setText("Tipo de Cliente");
 
         jLabelDocEstrangeiro.setText("Doc. Estrangeiro");
 
@@ -343,26 +461,22 @@ public class JMC1 extends javax.swing.JFrame {
                             .addComponent(jTResidencial, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(10, 10, 10)
                         .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelTCliente)
-                            .addGroup(jBasicoLayout.createSequentialGroup()
-                                .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTComercial, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jIE, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelIE)
-                                    .addComponent(jLabelSexo)
-                                    .addComponent(jLabelTComercial))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabelDNascimento)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabelTCelular)
-                                            .addComponent(jTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jDocEstrangeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelDocEstrangeiro)
-                                    .addComponent(jDNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jTComercial, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jIE, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelIE)
+                            .addComponent(jLabelSexo)
+                            .addComponent(jLabelTComercial))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelDNascimento)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelTCelular)
+                                    .addComponent(jTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jDocEstrangeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelDocEstrangeiro)
+                            .addComponent(jDNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jBasicoLayout.createSequentialGroup()
                         .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelId)
@@ -387,15 +501,9 @@ public class JMC1 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jNomeC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(12, 12, 12)
-                .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jBasicoLayout.createSequentialGroup()
-                        .addComponent(jLabelTPessoa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jBasicoLayout.createSequentialGroup()
-                        .addComponent(jLabelTCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabelTPessoa)
+                .addGap(14, 14, 14)
+                .addComponent(jTPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(jBasicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jBasicoLayout.createSequentialGroup()
@@ -467,6 +575,8 @@ public class JMC1 extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        jLabel7.setText("Pais");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -487,7 +597,11 @@ public class JMC1 extends javax.swing.JFrame {
                                 .addComponent(jNum, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel3)))
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jPais, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -524,7 +638,11 @@ public class JMC1 extends javax.swing.JFrame {
                     .addComponent(jCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0))
+                .addGap(10, 10, 10)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPais, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Endereço", jPanel1);
@@ -617,6 +735,8 @@ public class JMC1 extends javax.swing.JFrame {
                 .addGap(10, 10, 10))
         );
 
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         jMenu1.setText("Arquivo");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_HOME, java.awt.event.InputEvent.CTRL_MASK));
@@ -659,6 +779,10 @@ public class JMC1 extends javax.swing.JFrame {
         jMenuItem7.setText("Novo");
         jMenu1.add(jMenuItem7);
 
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem3.setText("Editar");
+        jMenu1.add(jMenuItem3);
+
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem8.setText("Salvar");
         jMenu1.add(jMenuItem8);
@@ -693,21 +817,6 @@ public class JMC1 extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -738,16 +847,24 @@ public class JMC1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jNumActionPerformed
 
     private void jPrimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPrimActionPerformed
-        // TODO add your handling code here:
+       this.numItem = 0;
+        atualizarCampos();
     }//GEN-LAST:event_jPrimActionPerformed
 
     private void jExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jExcluirActionPerformed
-     
+        try {
+            this.dao.delete();
+            atualizarCampos();
+        } catch (SQLException ex) {
+            Logger.getLogger(JMC1.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jExcluirActionPerformed
 
     private void jProxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProxActionPerformed
-        this.numItem++;
-        this.jId.setText(String.valueOf(this.numItem));
+        if(this.numItem<this.qtdItem-1){
+            this.numItem++;
+            atualizarCampos();
+        }
     }//GEN-LAST:event_jProxActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -756,11 +873,9 @@ public class JMC1 extends javax.swing.JFrame {
 
     private void jSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalvarActionPerformed
         // TODO add your handling code here:
-            dao = new ClienteDAO();
-            dao.setID(Integer.valueOf(this.jId.getText()))
+            this.dao.setID(Integer.valueOf(this.jId.getText()))
             .setNomeCompleto(this.jNomeC.getText())
             .setTPessoa(this.jTPessoa.getSelectedIndex())
-            .setTCliente(this.jTCliente.getSelectedIndex())
             .setCNPJCPF(this.jCnpjCpf.getText())
             .setIERG(this.jIE.getText())
             .setDocEstr(this.jDocEstrangeiro.getText())
@@ -783,10 +898,13 @@ public class JMC1 extends javax.swing.JFrame {
             .setAtivo(this.jAtivo.isSelected());
             
         try {
-            dao.salvar();
-        } catch (SQLException ex) {
-            Logger.getLogger(JMC1.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+            if(this.numItem == this.qtdItem){
+                this.dao.criar();
+            }else{
+                this.dao.salvar();
+            }
+            atualizarCampos();
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(JMC1.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -794,8 +912,156 @@ public class JMC1 extends javax.swing.JFrame {
 
     private void jAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAntActionPerformed
         this.numItem--;
-        this.jId.setText(String.valueOf(this.numItem));
+        atualizarCampos();
     }//GEN-LAST:event_jAntActionPerformed
+    private void ativarCampos(){
+        this.jNomeC.setEnabled(true);
+        this.jTPessoa.setEnabled(true);
+        this.jCnpjCpf.setEnabled(true);
+        this.jIE.setEnabled(true);
+        this.jDocEstrangeiro.setEnabled(true);
+        this.jSuframa.setEnabled(true);
+        this.jSexo.setEnabled(true);
+        this.jDNascimento.setEnabled(true);
+        this.jTResidencial.setEnabled(true);
+        this.jTComercial.setEnabled(true);
+        this.jTCelular.setEnabled(true);
+        this.jCEP.setEnabled(true);
+        this.jEndereco.setEnabled(true);
+        this.jNum.setEnabled(true);
+        this.jBairro.setEnabled(true);
+        this.jCidade.setEnabled(true);
+        this.jEstado.setEnabled(true);
+        this.jPais.setEnabled(true);
+        this.jEmail.setEnabled(true);
+        this.jContato.setEnabled(true);
+        this.jWebsite.setEnabled(true);
+        this.jTextObservacao.setEnabled(true);
+        this.jAtivo.setEnabled(true);
+    }
+    private void desativarCampos(){
+        this.jNomeC.setEnabled(false);
+        this.jTPessoa.setEnabled(false);
+        this.jCnpjCpf.setEnabled(false);
+        this.jIE.setEnabled(false);
+        this.jDocEstrangeiro.setEnabled(false);
+        this.jSuframa.setEnabled(false);
+        this.jSexo.setEnabled(false);
+        this.jDNascimento.setEnabled(false);
+        this.jTResidencial.setEnabled(false);
+        this.jTComercial.setEnabled(false);
+        this.jTCelular.setEnabled(false);
+        this.jCEP.setEnabled(false);
+        this.jEndereco.setEnabled(false);
+        this.jNum.setEnabled(false);
+        this.jBairro.setEnabled(false);
+        this.jCidade.setEnabled(false);
+        this.jEstado.setEnabled(false);
+        this.jPais.setEnabled(false);
+        this.jEmail.setEnabled(false);
+        this.jContato.setEnabled(false);
+        this.jWebsite.setEnabled(false);
+        this.jTextObservacao.setEnabled(false);
+        this.jAtivo.setEnabled(false);
+    }
+    private void zerarcampos(){
+        this.jNomeC.setText("");
+        this.jCnpjCpf.setText("");;
+        this.jIE.setText("");
+        this.jDocEstrangeiro.setText("");
+        this.jSuframa.setText("");
+        this.jDNascimento.setText("");
+        this.jTResidencial.setText("");
+        this.jTComercial.setText("");
+        this.jTCelular.setText("");
+        this.jCEP.setText("");
+        this.jEndereco.setText("");
+        this.jNum.setText("");
+        this.jBairro.setText("");
+        this.jCidade.setText("");
+        this.jEstado.setText("");
+        this.jPais.setText("");
+        this.jEmail.setText("");
+        this.jContato.setText("");
+        this.jWebsite.setText("");
+        this.jTextObservacao.setText("");
+    }
+    
+    private void jEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditarActionPerformed
+        ativarCampos();
+    }//GEN-LAST:event_jEditarActionPerformed
+
+    private void jUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUltimoActionPerformed
+        this.numItem = this.qtdItem-1;
+        atualizarCampos();
+    }//GEN-LAST:event_jUltimoActionPerformed
+
+    private void jCnpjCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jCnpjCpfKeyPressed
+        if(jCnpjCpf.getText().length()>17){
+            jCnpjCpf.setText(jCnpjCpf.getText().substring(0, jCnpjCpf.getText().length()-1));
+        }
+    }//GEN-LAST:event_jCnpjCpfKeyPressed
+
+    private void jNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNovoActionPerformed
+        ativarCampos();
+        this.numItem = this.qtdItem;
+        zerarcampos();
+        jId.setText(String.valueOf(this.IDs.get(this.qtdItem-1)+1));
+    }//GEN-LAST:event_jNovoActionPerformed
+
+    private void jbtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtPesquisarActionPerformed
+        try {
+            if(this.dao.pesquisarClientes(this.jLocalizar.getText())){
+                this.numItem = this.IDs.indexOf(this.dao.getID());
+                atualizarCampos();
+                this.jInternalPesquisar.setVisible(false);
+            }else{
+            
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JMC1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jbtPesquisarActionPerformed
+    private void disableAll(){
+        this.jTabbedPane1.setEnabled(false);
+        this.jMenu1.setEnabled(false);
+        this.jAnt.setEnabled(false);
+        this.jPrim.setEnabled(false);
+        this.jProx.setEnabled(false);
+        this.jUltimo.setEnabled(false);
+        this.jPesquisar.setEnabled(false);
+        this.jSalvar.setEnabled(false);
+        this.jNovo.setEnabled(false);
+        this.jEditar.setEnabled(false);
+        this.jExcluir.setEnabled(false);
+        this.jImprimir.setEnabled(false);
+        this.jToolBar1.setEnabled(false);
+    }
+    private void EnableAll(){
+        this.jTabbedPane1.setEnabled(true);
+        this.jMenu1.setEnabled(true);
+        this.jAnt.setEnabled(true);
+        this.jPrim.setEnabled(true);
+        this.jProx.setEnabled(true);
+        this.jUltimo.setEnabled(true);
+        this.jPesquisar.setEnabled(true);
+        this.jSalvar.setEnabled(true);
+        this.jNovo.setEnabled(true);
+        this.jEditar.setEnabled(true);
+        this.jExcluir.setEnabled(true);
+        this.jImprimir.setEnabled(true);
+        this.jToolBar1.setEnabled(true);
+    }
+    private void jPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPesquisarActionPerformed
+        disableAll();
+        this.jInternalPesquisar.setVisible(true);
+        this.jInternalPesquisar.setFocusable(true);
+    }//GEN-LAST:event_jPesquisarActionPerformed
+
+    private void jInternalPesquisarInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_jInternalPesquisarInternalFrameClosing
+        EnableAll();
+    }//GEN-LAST:event_jInternalPesquisarInternalFrameClosing
 
     /**
      * @param args the command line arguments
@@ -843,6 +1109,7 @@ public class JMC1 extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jContato;
     private javax.swing.JFormattedTextField jDNascimento;
     private javax.swing.JTextField jDocEstrangeiro;
+    private javax.swing.JButton jEditar;
     private javax.swing.JFormattedTextField jEmail;
     private javax.swing.JTextField jEndereco;
     private javax.swing.JTextField jEstado;
@@ -850,9 +1117,11 @@ public class JMC1 extends javax.swing.JFrame {
     private javax.swing.JTextField jIE;
     private javax.swing.JTextField jId;
     private javax.swing.JButton jImprimir;
+    private javax.swing.JInternalFrame jInternalPesquisar;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelCEP;
     private javax.swing.JLabel jLabelCidade;
     private javax.swing.JLabel jLabelCnpjCpf;
@@ -864,16 +1133,17 @@ public class JMC1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelIE;
     private javax.swing.JLabel jLabelId;
     private javax.swing.JLabel jLabelNomeC;
+    private javax.swing.JLabel jLabelNomeC1;
     private javax.swing.JLabel jLabelObservacao;
     private javax.swing.JLabel jLabelSexo;
     private javax.swing.JLabel jLabelSituacao;
     private javax.swing.JLabel jLabelSuframa;
     private javax.swing.JLabel jLabelTCelular;
-    private javax.swing.JLabel jLabelTCliente;
     private javax.swing.JLabel jLabelTComercial;
     private javax.swing.JLabel jLabelTPessoa;
     private javax.swing.JLabel jLabelTResidencial;
     private javax.swing.JLabel jLabelWebsite;
+    private javax.swing.JTextField jLocalizar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -881,6 +1151,7 @@ public class JMC1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
@@ -890,6 +1161,7 @@ public class JMC1 extends javax.swing.JFrame {
     private javax.swing.JTextField jNomeC;
     private javax.swing.JButton jNovo;
     private javax.swing.JTextField jNum;
+    private javax.swing.JTextField jPais;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -903,7 +1175,6 @@ public class JMC1 extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jSexo;
     private javax.swing.JTextField jSuframa;
     private javax.swing.JFormattedTextField jTCelular;
-    private javax.swing.JComboBox<String> jTCliente;
     private javax.swing.JFormattedTextField jTComercial;
     private javax.swing.JComboBox<String> jTPessoa;
     private javax.swing.JFormattedTextField jTResidencial;
@@ -912,6 +1183,7 @@ public class JMC1 extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JButton jUltimo;
     private javax.swing.JFormattedTextField jWebsite;
+    private javax.swing.JButton jbtPesquisar;
     // End of variables declaration//GEN-END:variables
     private Principal Princi;
 }

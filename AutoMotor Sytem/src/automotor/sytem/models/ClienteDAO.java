@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -263,15 +263,59 @@ public class ClienteDAO{
             
     public ClienteDAO(){
     }
-    
-    public void consultaCliente(int id) throws SQLException{
-        String sql = "SELECT * as qtd FROM clientes WHERE idClientes="+id;
-        ResultSet rs;
-        try (Connection conn = ConnectionMySql.startConnection()) {
-            PreparedStatement comando = conn.prepareStatement(sql);
-            rs = comando.executeQuery();
+    public boolean pesquisarClientes(String dado) throws SQLException{
+        ResultSet rs = null;
+        if(dado.matches("^[a-zA-ZÁÂÃÀÇÉÊÍÓÔÕÚÜáâãàçéêíóôõúü]*$")){
+            String sql = "SELECT idClientes FROM clientes WHERE NomeRazao like '%"+dado+"%'";
+            System.out.println(sql);
+            Connection conn = ConnectionMySql.startConnection();
+            PreparedStatement preparedStmt = conn.prepareStatement(sql);
+            rs = preparedStmt.executeQuery();
+        }else if(dado.matches("^[0-9]*$")){
+            String sql = "SELECT idClientes FROM clientes WHERE idClientes="+Integer.valueOf(dado);
+            System.out.println(sql);
+            Connection conn = ConnectionMySql.startConnection();
+            PreparedStatement preparedStmt = conn.prepareStatement(sql);
+           rs = preparedStmt.executeQuery();
         }
         
+        rs.last(); 
+        int rowcount = rs.getRow(); 
+        rs.beforeFirst();
+        if(rowcount>0){
+            boolean next = rs.next();
+            this.ID = rs.getInt("idClientes");
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public ClienteDAO consultaCliente(int id) throws SQLException{
+        String sql = "SELECT * FROM clientes WHERE idClientes="+id;
+        ResultSet rs;
+        Connection conn = ConnectionMySql.startConnection();
+        PreparedStatement comando = conn.prepareStatement(sql);
+        rs = comando.executeQuery();
+ 
+        boolean next = rs.next();
+        this.ID = id;
+        this.nomeCompleto = rs.getString("NomeRazao");
+        this.CNPJCPF = rs.getString("CpfCnpj");
+        this.IERG = rs.getString("IERG");
+        this.TPessoa = rs.getInt("TipoPessoa");
+        this.DocEstr = rs.getString("DocEstrangeiro");
+        this.Data = rs.getString("DataNascimento");
+        this.TelResiden = rs.getString("TelefoneResidencial");
+        this.TelComercial = rs.getString("TelefoneComercial");
+        this.Suframa = rs.getString("NumeroInscricaoSuframa");
+        this.TelCelular = rs.getString("Celular");
+        this.Contato= rs.getString("Contato");
+        this.Email = rs.getString("Email");
+        this.WebSite = rs.getString("Website");
+        this.Observacao = rs.getString("Observacao");
+        this.ativo = rs.getBoolean("Ativo");
+        
+        return this;
     }
 
     public int numQtd() throws SQLException{
@@ -283,34 +327,78 @@ public class ClienteDAO{
         boolean next = rs.next();
         return rs.getInt("qtd");
     }
-
-    public void salvar() throws SQLException, ParseException {
-        String sql = "INSERT INTO clientes (`NomeRazao`, `Datacadastro`, `DataAtualizacao`, `TipoCliente`, `CpfCnpj`, `IERG`, `TipoPessoa`, `DocEstrangeiro`, `DataNascimento`, `TelefoneResidencial`, `TelefoneComercial`, `NumeroInscricaoSuframa`, `Celular`, `Contato`, `Email`, `Website`, `Observacao`, `Ativo`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+     public ArrayList<Integer> listOfID() throws SQLException{
+        String sql = "SELECT idClientes FROM clientes";
         ResultSet rs;
-        try (Connection conn = ConnectionMySql.startConnection()) {
-            PreparedStatement preparedStmt = conn.prepareStatement(sql);
-            preparedStmt.setString(1, this.nomeCompleto);
-            java.util.Date dataUtil = new java.util.Date();
-            preparedStmt.setDate(2, new java.sql.Date(dataUtil.getTime()));
-            preparedStmt.setDate(3, new java.sql.Date(dataUtil.getTime()));
-            preparedStmt.setInt(4, this.TCliente);
-            preparedStmt.setString(5, this.CNPJCPF);
-            preparedStmt.setString(6, this.IERG);
-            preparedStmt.setInt(7, this.TPessoa);
-            preparedStmt.setString(8, this.DocEstr);
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            preparedStmt.setDate(9, new java.sql.Date(formato.parse(this.Data).getTime()));
-            preparedStmt.setString(10, this.TelResiden);
-            preparedStmt.setString(11, this.TelComercial);
-            preparedStmt.setString(12, this.Suframa);
-            preparedStmt.setString(13, this.TelCelular);
-            preparedStmt.setString(14, this.Contato);
-            preparedStmt.setString(15, this.Email);
-            preparedStmt.setString(16, this.WebSite);
-            preparedStmt.setString(17, this.Observacao);
-            preparedStmt.setBoolean(18, this.ativo);
-            preparedStmt.execute();
-            conn.close();
+        Connection conn = ConnectionMySql.startConnection();
+        PreparedStatement comando = conn.prepareStatement(sql);
+        rs = comando.executeQuery();
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        while(rs.next()){
+            result.add(rs.getInt("idClientes"));
         }
+        return result;
+    }
+    public int salvar() throws SQLException, ParseException{
+        String sql = "UPDATE clientes SET NomeRazao = ?, DataAtualizacao=?, CpfCnpj=?, IERG=?, TipoPessoa=?, DocEstrangeiro=?, DataNascimento=?, TelefoneResidencial=?, TelefoneComercial=?, NumeroInscricaoSuframa=?, Celular=?, Contato=?, Email=?, Website=?, Observacao=?, Ativo=? WHERE idClientes = ?";
+        Connection conn = ConnectionMySql.startConnection();
+        PreparedStatement preparedStmt = conn.prepareStatement(sql);
+        preparedStmt.setString(1, this.nomeCompleto);
+        java.util.Date dataUtil = new java.util.Date();
+        preparedStmt.setDate(2, new java.sql.Date(dataUtil.getTime()));
+        preparedStmt.setString(3, this.CNPJCPF);
+        preparedStmt.setString(4, this.IERG);
+        preparedStmt.setInt(5, this.TPessoa);
+        preparedStmt.setString(6, this.DocEstr);
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        preparedStmt.setDate(7, new java.sql.Date(formato.parse(this.Data).getTime()));
+        preparedStmt.setString(8, this.TelResiden);
+        preparedStmt.setString(9, this.TelComercial);
+        preparedStmt.setString(10, this.Suframa);
+        preparedStmt.setString(11, this.TelCelular);
+        preparedStmt.setString(12, this.Contato);
+        preparedStmt.setString(13, this.Email);
+        preparedStmt.setString(14, this.WebSite);
+        preparedStmt.setString(15, this.Observacao);
+        preparedStmt.setBoolean(16, this.ativo);
+        preparedStmt.setInt(17, this.ID);
+        int result = preparedStmt.executeUpdate();
+        conn.close();
+        return result;
+    }
+    public void delete() throws SQLException{
+        String sql = "DELETE FROM clientes WHERE idClientes=?";
+        Connection conn = ConnectionMySql.startConnection();
+        PreparedStatement preparedStmt = conn.prepareStatement(sql);
+        preparedStmt.setInt(1, this.ID);
+        preparedStmt.execute();
+        conn.close();
+    }
+    public boolean criar() throws SQLException, ParseException {
+        String sql = "INSERT INTO clientes (`NomeRazao`, `Datacadastro`, `DataAtualizacao`, `CpfCnpj`, `IERG`, `TipoPessoa`, `DocEstrangeiro`, `DataNascimento`, `TelefoneResidencial`, `TelefoneComercial`, `NumeroInscricaoSuframa`, `Celular`, `Contato`, `Email`, `Website`, `Observacao`, `Ativo`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        Connection conn = ConnectionMySql.startConnection();
+        PreparedStatement preparedStmt = conn.prepareStatement(sql);
+        preparedStmt.setString(1, this.nomeCompleto);
+        java.util.Date dataUtil = new java.util.Date();
+        preparedStmt.setDate(2, new java.sql.Date(dataUtil.getTime()));
+        preparedStmt.setDate(3, new java.sql.Date(dataUtil.getTime()));
+        preparedStmt.setString(4, this.CNPJCPF);
+        preparedStmt.setString(5, this.IERG);
+        preparedStmt.setInt(6, this.TPessoa);
+        preparedStmt.setString(7, this.DocEstr);
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        preparedStmt.setDate(8, new java.sql.Date(formato.parse(this.Data).getTime()));
+        preparedStmt.setString(9, this.TelResiden);
+        preparedStmt.setString(10, this.TelComercial);
+        preparedStmt.setString(11, this.Suframa);
+        preparedStmt.setString(12, this.TelCelular);
+        preparedStmt.setString(13, this.Contato);
+        preparedStmt.setString(14, this.Email);
+        preparedStmt.setString(15, this.WebSite);
+        preparedStmt.setString(16, this.Observacao);
+        preparedStmt.setBoolean(17, this.ativo);
+        boolean result = preparedStmt.execute();
+        conn.close();
+        return result;
     }
 }

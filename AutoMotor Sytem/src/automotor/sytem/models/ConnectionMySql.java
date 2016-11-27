@@ -27,7 +27,7 @@ public class ConnectionMySql{
          String serverName = "localhost:3306"; 
          
             String mydatabase ="automotor";       
-            String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
+            String url = "jdbc:mysql://" + serverName + "/" + mydatabase+"?autoReconnect=true&useSSL=false";
             String username = "root";         
             String password = "";
         try{
